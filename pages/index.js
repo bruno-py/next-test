@@ -1,24 +1,33 @@
 import * as React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import ProTip from '../src/ProTip';
-import Link from '../src/Link';
-import Copyright from '../src/Copyright';
+import MyAppBar from '../components/MyAppBar'
+import {useState} from "react";
+import MyGrid from "../components/MyGrid";
+import products from "../util/products"
+import Typography from "@mui/material/Typography";
+
+const categories = ['Todos', 'Bebidas', 'Frutas', 'Lácteos', 'Limpieza']
+
+function filterProducts(searchTerm, selectedCategory, products) {
+    if (searchTerm != '') return products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    if (selectedCategory == "Todos") return products;
+    return products.filter(product => product.category == selectedCategory)
+}
 
 export default function Index() {
-  return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Material UI - Next.js example
-        </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
-        <ProTip />
-        <Copyright />
-      </Box>
-    </Container>
-  );
+    const [selectedCategory, setSelectedCategory] = useState('Bebidas')
+    const [searchTerm, setSearchTerm] = useState('')
+    const filteredProducts = filterProducts(searchTerm, selectedCategory, products)
+
+    return (
+        <>
+            <MyAppBar
+                categories={categories}
+                setSelectedCategory={setSelectedCategory}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+            />
+
+            <MyGrid products={filteredProducts} />
+        </>
+    );
 }
