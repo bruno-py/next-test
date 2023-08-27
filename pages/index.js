@@ -1,9 +1,8 @@
 import * as React from 'react';
-import MyAppBar from '../components/MyAppBar'
+import MyAppBar from '../components/index/MyAppBar'
 import {useState} from "react";
-import MyGrid from "../components/MyGrid";
+import MyGrid from "../components/index/MyGrid";
 import products from "../util/products"
-import Typography from "@mui/material/Typography";
 
 const categories = ['Todos', 'Bebidas', 'Frutas', 'Lácteos', 'Limpieza']
 
